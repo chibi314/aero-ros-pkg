@@ -17,4 +17,11 @@
  <xacro:aero-upper/>
  <xacro:aero-wheels base_link="base_link"/>
 
+  <gazebo>
+   <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+     <robotNamespace>/AeroUpperRobot</robotNamespace>
+     <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+   </plugin>
+ </gazebo>
+
 </robot>

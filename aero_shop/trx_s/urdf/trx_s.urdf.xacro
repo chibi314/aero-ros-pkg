@@ -52,9 +52,9 @@
       </geometry>
     </collision> </xacro:unless>
     <inertial>
-      <mass value="0" />
+      <mass value="0.001" />
       <origin xyz="0 0 0" rpy="0 -0 0"/>
-      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
     </inertial>
   </link>
   <gazebo reference="${prefix}_indexthumb_link">
@@ -76,9 +76,9 @@
       </geometry>
     </collision> </xacro:unless>
     <inertial>
-      <mass value="0" />
+      <mass value="0.001" />
       <origin xyz="0 0 0" rpy="0 -0 0"/>
-      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
     </inertial>
   </link>
   <gazebo reference="${prefix}_indexmid_link">
@@ -100,9 +100,9 @@
       </geometry>
     </collision> </xacro:unless>
     <inertial>
-      <mass value="0" />
+      <mass value="0.001" />
       <origin xyz="0 0 0" rpy="0 -0 0"/>
-      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
     </inertial>
   </link>
   <gazebo reference="${prefix}_indexend_link">
@@ -124,9 +124,9 @@
       </geometry>
     </collision> </xacro:unless>
     <inertial>
-      <mass value="0" />
+      <mass value="0.001" />
       <origin xyz="0 0 0" rpy="0 -0 0"/>
-      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
     </inertial>
   </link>
   <gazebo reference="${prefix}_thumb_link">
@@ -157,6 +157,7 @@
   <gazebo reference="${prefix}_indexmid_joint">
     <implicitSpringDamper>0.4</implicitSpringDamper>
   </gazebo>
+
   <joint name="${prefix}_indexend_joint" type="revolute">
     <parent link="${prefix}_indexmid_link"/>
     <child  link="${prefix}_indexend_link"/>
@@ -165,14 +166,20 @@
     <limit lower="-3.14159" upper="3.14159" effort="100" velocity="0.5" />
     <dynamics damping="0.2" friction="0" />
   </joint>
-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="${prefix}_indexend_joint_trans" >
-    <actuator name="${prefix}_indexend_joint_motor" />
-    <joint name="${prefix}_indexend_joint" />
-    <mechanicalReduction>1</mechanicalReduction>
+  <transmission name="${prefix}_indexend_joint_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="${prefix}_indexend_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="${prefix}_indexend_joint_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
   </transmission>
   <gazebo reference="${prefix}_indexend_joint">
     <implicitSpringDamper>0.4</implicitSpringDamper>
   </gazebo>
+
   <joint name="${prefix}_thumb_joint" type="revolute">
     <parent link="${prefix}_hand_link"/>
     <child  link="${prefix}_thumb_link"/>
@@ -181,10 +188,15 @@
     <limit lower="-3.14159" upper="3.14159" effort="100" velocity="0.5" />
     <dynamics damping="0.2" friction="0" />
   </joint>
-  <transmission type="pr2_mechanism_model/SimpleTransmission" name="${prefix}_thumb_joint_trans" >
-    <actuator name="${prefix}_thumb_joint_motor" />
-    <joint name="${prefix}_thumb_joint" />
-    <mechanicalReduction>1</mechanicalReduction>
+  <transmission name="${prefix}_thumb_joint_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="${prefix}_thumb_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="${prefix}_thumb_joint_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
   </transmission>
   <gazebo reference="${prefix}_thumb_joint">
     <implicitSpringDamper>0.4</implicitSpringDamper>
