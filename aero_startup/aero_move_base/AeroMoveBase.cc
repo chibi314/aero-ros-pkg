@@ -153,12 +153,18 @@ void AeroMoveBase::CalculateOdometry(const ros::TimerEvent& _event)
   odom.pose.pose.position.y = y_;
   odom.pose.pose.position.z = 0.0;
   odom.pose.pose.orientation = odom_quat;
+  odom.pose.covariance[0] = 0.0001689011;
+  odom.pose.covariance[7] = 0.0153043376;
+  odom.pose.covariance[35] = 6.38922520184886E-05;
 
   // set the velocity
   odom.child_frame_id = "base_link";
   odom.twist.twist.linear.x = vx_;
   odom.twist.twist.linear.y = vy_;
   odom.twist.twist.angular.z = vth_;
+  odom.twist.covariance[0] = 0.0001689011;
+  odom.twist.covariance[7] = 0.0153043376;
+  odom.twist.covariance[35] = 6.38922520184886E-05;
 
   // publish the message
   odom_pub_.publish(odom);
